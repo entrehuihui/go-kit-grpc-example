@@ -1,0 +1,121 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/commodity.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/GetCommodityLists": {
+      "get": {
+        "summary": "获取商品列表",
+        "operationId": "GetCommodityLists",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetCommodityListsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "返回数量.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "description": "返回数据开始数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "ID",
+            "description": "检索商品ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Commodity"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoCommodityInfo": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "商品ID"
+        },
+        "Name": {
+          "type": "string",
+          "title": "商品名称"
+        },
+        "OldPrice": {
+          "type": "string",
+          "title": "商品原价"
+        },
+        "NewPrice": {
+          "type": "string",
+          "title": "商品打折价"
+        },
+        "PriceRemark": {
+          "type": "string",
+          "title": "打折价说明"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "int64",
+          "title": "更新时间"
+        }
+      }
+    },
+    "protoGetCommodityListsResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "Allnum": {
+          "type": "string",
+          "format": "int64",
+          "title": "检索数据总数"
+        },
+        "Data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoCommodityInfo"
+          },
+          "title": "数据数列"
+        }
+      }
+    }
+  }
+}

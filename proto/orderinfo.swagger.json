@@ -1,0 +1,272 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/orderinfo.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/CreateOrder": {
+      "post": {
+        "summary": "创建订单",
+        "operationId": "CreateOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateOrderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateOrderReq"
+            }
+          }
+        ],
+        "tags": [
+          "orderinfo"
+        ]
+      }
+    },
+    "/DelOrder": {
+      "delete": {
+        "summary": "删除订单",
+        "operationId": "DelOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDelOrderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ID",
+            "description": "订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "orderinfo"
+        ]
+      }
+    },
+    "/GetOrderLists": {
+      "get": {
+        "summary": "获取订单列表",
+        "operationId": "GetorderinfoLists",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetorderinfoListsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "返回数量.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "description": "返回数据开始数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "ID",
+            "description": "检索订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "CID",
+            "description": "检索订单商品ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "订单状态.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "PID",
+            "description": "检索支付ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "orderinfo"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoCreateOrderReq": {
+      "type": "object",
+      "properties": {
+        "CID": {
+          "type": "string",
+          "format": "int64",
+          "title": "商品ID"
+        },
+        "newprice": {
+          "type": "string",
+          "format": "int64",
+          "title": "商品价钱"
+        }
+      }
+    },
+    "protoCreateOrderResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单ID"
+        }
+      }
+    },
+    "protoDelOrderResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        }
+      }
+    },
+    "protoGetorderinfoListsResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "Allnum": {
+          "type": "string",
+          "format": "int64",
+          "title": "检索数据总数"
+        },
+        "Data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoorderinfoInfo"
+          },
+          "title": "数据数列"
+        }
+      }
+    },
+    "protoorderinfoInfo": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单ID"
+        },
+        "CID": {
+          "type": "string",
+          "format": "int64",
+          "title": "商品ID"
+        },
+        "PID": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付ID"
+        },
+        "CPrice": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单支付价钱"
+        },
+        "Priceremark": {
+          "type": "string",
+          "format": "int64",
+          "title": "价钱说明"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        },
+        "Status": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单状态"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/pay.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/CreatePayInfo": {
+      "post": {
+        "summary": "创建支付订单",
+        "operationId": "CreatePayInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreatePayInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreatePayInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay"
+        ]
+      }
+    },
+    "/DelPayInfo": {
+      "delete": {
+        "summary": "删除支付订单",
+        "operationId": "DelPayInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDelPayInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ID",
+            "description": "支付订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "pay"
+        ]
+      }
+    },
+    "/GetPayList": {
+      "get": {
+        "summary": "获取支付订单列表",
+        "operationId": "GetPayList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetPayListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "返回数量.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "description": "返回数据开始数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "ID",
+            "description": "支付订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "支付订单状态.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "way",
+            "description": "支付方式.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "pay"
+        ]
+      }
+    },
+    "/PaySuccess": {
+      "post": {
+        "summary": "支付支付提交",
+        "operationId": "PaySuccess",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoPaySuccessResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoPaySuccessReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoCreatePayInfoReq": {
+      "type": "object",
+      "properties": {
+        "CIDs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "title": "订单ID数组"
+        },
+        "Price": {
+          "type": "string",
+          "format": "int64",
+          "title": "订单总价钱"
+        }
+      }
+    },
+    "protoCreatePayInfoResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付订单ID"
+        }
+      }
+    },
+    "protoDelPayInfoResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        }
+      }
+    },
+    "protoGetPayListInfo": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付订单ID"
+        },
+        "Price": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付订单支付价钱"
+        },
+        "Way": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付方式  1银行卡 2支付宝 3微信"
+        },
+        "Number": {
+          "type": "string",
+          "title": "支付账号"
+        },
+        "Status": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付订单状态"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        }
+      }
+    },
+    "protoGetPayListResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "Allnum": {
+          "type": "string",
+          "format": "int64",
+          "title": "检索数据总数"
+        },
+        "Data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoGetPayListInfo"
+          },
+          "title": "数据数列"
+        }
+      }
+    },
+    "protoPaySuccessReq": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付订单ID"
+        },
+        "price": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付价钱"
+        },
+        "way": {
+          "type": "string",
+          "format": "int64",
+          "title": "支付方式 1银行卡 2支付宝 3微信"
+        },
+        "number": {
+          "type": "string",
+          "title": "支付账号"
+        },
+        "serial": {
+          "type": "string",
+          "title": "支付流水号"
+        }
+      }
+    },
+    "protoPaySuccessResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        }
+      }
+    }
+  }
+}

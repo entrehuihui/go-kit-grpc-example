@@ -1,0 +1,362 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/refund.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/CreatePayInfo": {
+      "post": {
+        "summary": "提交退款订单",
+        "operationId": "CreateReFundInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateReFundResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateReFundReq"
+            }
+          }
+        ],
+        "tags": [
+          "refund"
+        ]
+      }
+    },
+    "/DelPayInfo": {
+      "delete": {
+        "summary": "删除退款订单",
+        "operationId": "DelRefundinfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDelRefundResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ID",
+            "description": "退款订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "refund"
+        ]
+      }
+    },
+    "/GetPayList": {
+      "get": {
+        "summary": "获取退款列表",
+        "operationId": "GetRefundInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetRefundResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "description": "返回数量.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "description": "返回数据开始数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "ID",
+            "description": "退款订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "退款订单状态.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "PID",
+            "description": "支付订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "OID",
+            "description": "订单ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "way",
+            "description": "退款方式 1银行卡 2支付宝 3微信.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "startTime",
+            "description": "开始时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "description": "结束时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "refund"
+        ]
+      }
+    },
+    "/PaySuccess": {
+      "post": {
+        "summary": "提交成功退款",
+        "operationId": "RefundSuccess",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoRefundSuccessResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoRefundSuccessReq"
+            }
+          }
+        ],
+        "tags": [
+          "refund"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoCreateReFundReq": {
+      "type": "object",
+      "properties": {
+        "OID": {
+          "type": "string",
+          "format": "int64",
+          "title": "商品订单ID"
+        },
+        "way": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款方式 1银行卡 2支付宝 3微信"
+        },
+        "number": {
+          "type": "string",
+          "title": "退款账号"
+        },
+        "price": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款金额"
+        }
+      }
+    },
+    "protoCreateReFundResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款订单ID"
+        }
+      }
+    },
+    "protoDelRefundResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        }
+      }
+    },
+    "protoGetRefundInfo": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款订单ID"
+        },
+        "OID": {
+          "type": "string",
+          "format": "int64",
+          "title": "商品订单ID"
+        },
+        "oprice": {
+          "type": "string",
+          "format": "int64",
+          "title": "商品支付金额"
+        },
+        "Price": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款金额"
+        },
+        "Way": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款方式 1银行卡 2支付宝 3微信"
+        },
+        "Number": {
+          "type": "string",
+          "title": "退款账号"
+        },
+        "Status": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款状态"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64",
+          "title": "创建时间"
+        }
+      }
+    },
+    "protoGetRefundResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        },
+        "Allnum": {
+          "type": "string",
+          "format": "int64",
+          "title": "检索数据总数"
+        },
+        "Data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoGetRefundInfo"
+          },
+          "title": "数据数列"
+        }
+      }
+    },
+    "protoRefundSuccessReq": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款订单ID"
+        },
+        "price": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款金额"
+        },
+        "way": {
+          "type": "string",
+          "format": "int64",
+          "title": "退款方式 1银行卡 2支付宝 3微信"
+        },
+        "number": {
+          "type": "string",
+          "title": "退款账号"
+        },
+        "serial": {
+          "type": "string",
+          "title": "退款流水号"
+        }
+      }
+    },
+    "protoRefundSuccessResp": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "返回码 200:成功 500:失败"
+        },
+        "Err": {
+          "type": "string",
+          "title": "错误信息"
+        }
+      }
+    }
+  }
+}

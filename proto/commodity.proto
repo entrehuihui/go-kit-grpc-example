@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/api/annotations.proto";
+
+service Commodity {
+    //获取商品列表
+    rpc  GetCommodityLists(GetCommodityListsReq) returns (GetCommodityListsResp){
+        option (google.api.http) ={
+            get:"/GetCommodityLists"
+        };
+    };
+}
+
+message GetCommodityListsReq {
+    // 返回数量
+    int64 limit = 1;
+    // 返回数据开始数
+    int64 offset = 2;
+    // 检索商品ID
+    int64 ID = 3;
+}
+
+message GetCommodityListsResp {
+    // 返回码 200:成功 500:失败
+    int32 Code = 1;
+    // 错误信息
+    string Err = 2;
+    // 检索数据总数
+    int64 Allnum =3;
+    // 数据数列
+    repeated CommodityInfo Data =4;
+}
+
+message CommodityInfo {
+    // 商品ID
+    int64 ID = 1;
+    // 商品名称
+    string Name = 2;
+    // 商品原价
+    string OldPrice = 3;
+    // 商品打折价
+    string NewPrice = 4;
+    // 打折价说明
+    string PriceRemark = 5;
+    // 更新时间
+    int64 updateTime = 6;
+}

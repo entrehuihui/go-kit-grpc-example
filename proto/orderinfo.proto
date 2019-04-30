@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/api/annotations.proto";
+
+service orderinfo {
+    //获取订单列表
+    rpc  GetorderinfoLists(GetorderinfoListsReq) returns (GetorderinfoListsResp){
+        option (google.api.http) ={
+            get:"/GetOrderLists"
+        };
+    };
+    //创建订单
+    rpc  CreateOrder(CreateOrderReq) returns (CreateOrderResp){
+        option (google.api.http) ={
+            post:"/CreateOrder"
+            body:"*"
+        };
+    };
+    //删除订单
+    rpc  DelOrder(DelOrderReq) returns (DelOrderResp){
+        option (google.api.http) ={
+            delete:"/DelOrder"
+        };
+    };
+}
+
+message GetorderinfoListsReq {
+    // 返回数量
+    int64 limit = 1;
+    // 返回数据开始数
+    int64 offset = 2;
+    // 检索订单ID
+    int64 ID = 3;
+    // 检索订单商品ID
+    int64 CID = 4;
+    // 订单状态
+    int64 status = 5;
+    // 检索支付ID
+    int64 PID = 6;
+    // 开始时间
+    int64 startTime = 7;
+    // 结束时间
+    int64 endTime = 8;
+}
+
+message GetorderinfoListsResp {
+    // 返回码 200:成功 500:失败
+    int32 Code = 1;
+    // 错误信息
+    string Err = 2;
+    // 检索数据总数
+    int64 Allnum =3;
+    // 数据数列
+    repeated orderinfoInfo Data =4;
+}
+
+message orderinfoInfo {
+    // 订单ID
+    int64 ID = 1; 
+    // 商品ID
+    int64 CID = 2; 
+    // 支付ID
+    int64 PID = 3; 
+    // 订单支付价钱
+    int64 CPrice  = 4; 
+    // 价钱说明
+    int64 Priceremark = 5; 
+    // 创建时间
+    int64 CreateTime = 6; 
+    // 订单状态
+    int64 Status = 7; 
+}
+
+message CreateOrderReq {
+    // 商品ID
+    int64 CID = 1;
+    // 商品价钱
+    int64 newprice = 2;
+}
+
+message CreateOrderResp {
+    // 返回码 200:成功 500:失败
+    int32 Code = 1;
+    // 错误信息
+    string Err = 2;
+    // 订单ID
+    int64 ID = 3;
+}
+
+message DelOrderReq {
+    // 订单ID
+    int64 ID = 1;
+}
+
+message DelOrderResp {
+    // 返回码 200:成功 500:失败
+    int32 Code = 1;
+    // 错误信息
+    string Err = 2;
+}
